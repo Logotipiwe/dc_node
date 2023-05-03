@@ -11,6 +11,26 @@ export function getCreationForm(){
 export function printTodos(todos){
     return todos.map(printTodo).join("<br/>")
 }
+
+function getDeleteForm(todo) {
+    return `
+<form action="/delete/${todo.id}" method="post">
+    <input type="hidden" name="id" value="${todo.id}">
+    <input type="submit" value="Удалить todo ${todo.name}">
+</form>
+    `;
+}
+
+function getEditForm(todo){
+    return `
+<form action="/edit/${todo.id}" method="post">
+    <input type="text" name="name" placeholder="Edit...">
+</form>
+    `;
+}
+
 function printTodo(todo){
-    return todo.id + ". " + todo.name;
+    return todo.id + ". " + todo.name
+        + getEditForm(todo)
+        + getDeleteForm(todo);
 }

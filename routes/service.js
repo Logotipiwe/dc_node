@@ -1,21 +1,21 @@
-import {promises} from "fs";
+import {deleteTodoImpl, editTodoImpl, getTodosImpl, saveTodoImpl} from "./repo.js";
 
-function constructTodo(id, name){
-    return {id, name};
+function constructTodo(name) {
+    const todos = getTodosImpl();
+    return {id: todos.length + 1, name};
 }
 
 export function createTodo(name){
-    return getTodos().then(todos=>{
-        todos.push(constructTodo(todos.length + 1, name));
-        return saveTodos(todos);
-    });
+    const newTodo = constructTodo(name);
+    saveTodoImpl(newTodo);
+    return newTodo;
+}
+export function deleteTodo(id){
+    deleteTodoImpl(id);
+}
+export function editTodo(id, name){
+    return editTodoImpl(id, name);
 }
 export function getTodos(){
-    return promises.readFile('data.json', 'utf8')
-        .then(JSON.parse);
-}
-export function saveTodos(todos){
-    return promises.writeFile("data.json", JSON.stringify(todos)).then(()=>{
-        return todos;
-    });
+    return getTodosImpl();
 }
