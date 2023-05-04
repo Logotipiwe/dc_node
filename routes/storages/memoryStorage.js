@@ -56,9 +56,9 @@ export class MemoryStorage extends AbstractStorage {
         const todoToChange = todos.find(x => x.id == todo.id);
         if (!todoToChange) throw new Error("no todo found by id " + todo.id);
 
-        todoToChange.name = todo.name;
+        const todoToSave = {...todoToChange, ...todo};
 
-        const saved = this.saveTodo(todoToChange);
+        const saved = this.saveTodo(todoToSave);
         return saved;
     }
 }

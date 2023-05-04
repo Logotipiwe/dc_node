@@ -1,5 +1,4 @@
-
-export function getCreationForm(){
+export function getCreationForm() {
     return `
 <form action="/create" method="post"> 
     <input type="text" placeholder="Name..." name="name">
@@ -8,7 +7,7 @@ export function getCreationForm(){
     `
 }
 
-export function printTodos(todos){
+export function printTodos(todos) {
     return todos.map(printTodo).join("<br/>")
 }
 
@@ -21,15 +20,16 @@ function getDeleteForm(todo) {
     `;
 }
 
-function getEditForm(todo){
+function getEditForm(todo) {
     return `
 <form action="/edit/${todo.id}" method="post">
     <input type="text" name="name" placeholder="Edit...">
+    <input type="hidden" name="id" value="${todo.id}">
 </form>
     `;
 }
 
-function printTodo(todo){
+function printTodo(todo) {
     return todo.id + ". " + todo.name
         + getEditForm(todo)
         + getDeleteForm(todo);

@@ -30,7 +30,6 @@ export default class MongoStorage extends AbstractStorage {
 
     async saveTodos(todos) {
         await this._client.insertMany(todos);
-        // await new Promise(resolve => setTimeout(resolve,500))
         return todos;
     }
 
@@ -40,12 +39,10 @@ export default class MongoStorage extends AbstractStorage {
 
     async deleteTodo(todo) {
         await this._client.deleteOne({_id: todo._id})
-        // await new Promise(resolve => setTimeout(resolve,200))
     }
 
     async editTodo(todo) {
         await this._client.updateOne({_id: todo._id}, {$set: todo})
-        // await new Promise(resolve => setTimeout(resolve,200))
         return todo;
     }
 

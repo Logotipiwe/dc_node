@@ -54,10 +54,10 @@ export class FileStorage extends AbstractStorage{
         const todoToChange = todos.find(x => x.id == todo.id);
         if (!todoToChange) throw new Error("no todo found by id " + todo.id);
 
-        todoToChange.name = todo.name;
+        const todoToSave = {...todoToChange, ...todo};
 
         // noinspection UnnecessaryLocalVariableJS
-        const saved = this.saveTodo(todoToChange);
+        const saved = this.saveTodo(todoToSave);
         return saved;
     }
 }
