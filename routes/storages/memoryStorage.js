@@ -1,8 +1,11 @@
-export class MemoryStorage {
+import AbstractStorage from "./storage";
+
+export class MemoryStorage extends AbstractStorage {
     _data;
     static storageType = "MEM"
 
     constructor() {
+        super();
         this._data = [];
     }
 
@@ -25,6 +28,7 @@ export class MemoryStorage {
         if (indexToSave !== -1) {
             todos.splice(indexToSave, 1, todo);
         } else {
+            todo.id = todos.length + 1;
             todos.push(todo);
         }
         return todo;
@@ -32,29 +36,28 @@ export class MemoryStorage {
 
     saveTodos(todos) {
         this._data = [...todos];
+        return this._data;
     }
 
     clearTodos() {
         this._data = [];
     }
 
-    deleteTodo(id) {
+    deleteTodo(todo) {
         const todos = this.getTodos();
-        const indexToDelete = todos.findIndex(todo => todo.id == id);
+        const indexToDelete = todos.findIndex(x => x.id == todo.id);
         todos.splice(indexToDelete, 1);
         this.saveTodos(todos);
         return true;
     }
 
-    editTodo(id, newName) {
+    editTodo(todo) {
         const todos = this.getTodos();
-        // noinspection EqualityComparisonWithCoercionJS
-        const todoToChange = todos.find(todo => todo.id == id);
-        if (!todoToChange) throw new Error("no todo found by id " + id);
+        const todoToChange = todos.find(x => x.id == todo.id);
+        if (!todoToChange) throw new Error("no todo found by id " + todo.id);
 
-        todoToChange.name = newName;
+        todoToChange.name = todo.name;
 
-        // noinspection UnnecessaryLocalVariableJS
         const saved = this.saveTodo(todoToChange);
         return saved;
     }

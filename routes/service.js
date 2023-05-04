@@ -1,21 +1,17 @@
 import {deleteTodoImpl, editTodoImpl, getTodosImpl, saveTodoImpl} from "./repo.js";
+import Todo from "./model/Todo";
 
-function constructTodo(name) {
-    const todos = getTodosImpl();
-    return {id: todos.length + 1, name};
-}
-
-export function createTodo(name){
-    const newTodo = constructTodo(name);
-    saveTodoImpl(newTodo);
+export async function createTodo(name){
+    const newTodo = Todo.create(name)
+    await saveTodoImpl(newTodo);
     return newTodo;
 }
-export function deleteTodo(id){
-    deleteTodoImpl(id);
+export async function deleteTodo(todo){
+    await deleteTodoImpl(todo);
 }
-export function editTodo(id, name){
-    return editTodoImpl(id, name);
+export async function editTodo(todo){
+    return await editTodoImpl(todo);
 }
-export function getTodos(){
-    return getTodosImpl();
+export async function getTodos(){
+    return await getTodosImpl();
 }

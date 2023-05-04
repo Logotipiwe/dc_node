@@ -1,5 +1,5 @@
 import express from "express";
-import {createTodo, deleteTodo} from "./service.js";
+import {createTodo, deleteTodo, editTodo, getTodos} from "./service.js";
 import {editTodoImpl, getTodosImpl} from "./repo";
 import {getCreationForm, printTodos} from "./presenter";
 const router = express.Router();
@@ -12,19 +12,19 @@ router.post("/create", (req, res) => {
     res.redirect("/");
 });
 
-router.post('/delete/:id', (req, res) => {
+router.post('/delete/:id', async (req, res) => {
     console.log(req.params.id);
-    deleteTodo(req.params.id);
+    await deleteTodo(req.body);
     res.redirect("/");
 });
 
-router.post('/edit/:id', (req, res) => {
-    editTodoImpl(req.params.id, req.body.name);
+router.post('/edit/:id', async (req, res) => {
+    await editTodo(req.body);
     res.redirect("/");
 });
 
 router.get('/', async function(req, res, next) {
-    const json = getTodosImpl();
+    const json = await getTodos();
     res.send(getCreationForm() + printTodos(json));
 });
 

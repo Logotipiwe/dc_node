@@ -1,14 +1,31 @@
 import {FileStorage} from "./fileStorage";
 import {MemoryStorage} from "./memoryStorage";
+import MongoStorage from "./mongoStorage";
 
-export class StorageFactory {
+class StorageFactory {
     static _storages = [
-        MemoryStorage, FileStorage
+        MemoryStorage,
+        FileStorage,
+        MongoStorage
     ]
+
+    static _instances = {}
 
     getStorage() {
         const dbType = process.env.DB;
         const storageClass = StorageFactory._storages.find(s=>s.storageType === dbType);
-        return storageClass.create();
+
+        let instance = StorageFactory._instances[storageClass];
+
+        if(!instance) {
+            instance = storageClass.create();
+            StorageFactory._instances[storageClass] = instance
+        }
+
+        return instance;
     }
 }
+
+const factory = new StorageFactory();
+
+export default factory;
