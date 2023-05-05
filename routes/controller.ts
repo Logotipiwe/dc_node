@@ -18,10 +18,7 @@ router.post('/delete/:id', async (req, res) => {
 });
 
 router.post('/edit/:id', async (req, res) => {
-    const id = parseInt(req.params.id);
-    if(isNaN(id)){
-        res.redirect("/");
-    }
+    const id = req.params.id;
     await editTodo({...req.body, id});
     res.redirect("/");
 });

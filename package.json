@@ -5,12 +5,21 @@
   "type": "module",
   "module": "ES6",
   "scripts": {
-    "start": "cross-env DB=FILE nodemon --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
-    "start2": "node bin/www.js"
+    "start": "cross-env DB=MONGO nodemon --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
+    "start2": "node bin/www.js",
+    "test": "jest"
   },
   "jest": {
+    "verbose": true,
+    "preset": "<rootDir>/node_modules/ts-jest/presets/js-with-ts-esm",
     "transform": {
-      "^.+\\.[t|j]sx?$": "babel-jest"
+      "^.+\\.[t|j]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.json",
+          "isolatedModules": false
+        }
+      ]
     }
   },
   "dependencies": {
@@ -25,12 +34,16 @@
     "@babel/cli": "^7.21.5",
     "@babel/core": "^7.21.5",
     "@babel/preset-env": "^7.21.5",
+    "@babel/preset-typescript": "^7.21.5",
+    "@jest/globals": "^29.5.0",
     "@types/debug": "^4.1.7",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.1",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.16.3",
     "babel-jest": "^29.5.0",
     "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.0",
     "typescript": "^5.0.4"

@@ -1,3 +1,4 @@
+
 import {FileStorage} from "./fileStorage";
 import {MemoryStorage} from "./memoryStorage";
 import MongoStorage from "./mongoStorage";
@@ -9,12 +10,11 @@ class StorageFactory {
         MongoStorage
     ]
 
-    static _instances = {}
+    static _instances: {[x: number]: string} = {}
 
     getStorage() {
         const dbType = process.env.DB;
         const storageClass = StorageFactory._storages.find(s=>s.storageType === dbType);
-
         let instance = StorageFactory._instances[storageClass];
 
         if(!instance) {
