@@ -1,4 +1,4 @@
-import {deleteTodoImpl, editTodoImpl, getTodosImpl, saveTodoImpl} from "./repo.js";
+import {deleteTodoImpl, editTodoImpl, getTodosImpl, saveTodoImpl} from "./repo";
 import Todo from "./model/Todo";
 
 export async function createTodo(name){
@@ -9,7 +9,7 @@ export async function createTodo(name){
 export async function deleteTodo(todo){
     await deleteTodoImpl(todo);
 }
-export async function editTodo(todo){
+export async function editTodo(todo): Promise<Todo> {
     return await editTodoImpl(todo);
 }
 export async function getTodos(){

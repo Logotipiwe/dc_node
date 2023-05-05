@@ -1,5 +1,5 @@
 import factory from "./storages/storageFactory";
-import {createTodo, deleteTodo, editTodo, getTodos} from "./service.js";
+import {createTodo, deleteTodo, editTodo, getTodos} from "./service";
 import {clearTodos} from "./repo";
 import MongoStorage from "./storages/mongoStorage";
 

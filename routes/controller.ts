@@ -1,6 +1,5 @@
 import express from "express";
-import {createTodo, deleteTodo, editTodo, getTodos} from "./service.js";
-import {editTodoImpl, getTodosImpl} from "./repo";
+import {createTodo, deleteTodo, editTodo, getTodos} from "./service";
 import {getCreationForm, printTodos} from "./presenter";
 const router = express.Router();
 

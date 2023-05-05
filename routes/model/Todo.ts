@@ -1,13 +1,13 @@
 
 export default class Todo {
-    constructor(name) {
+    constructor(name: string) {
         this.name = name;
     }
 
-    name
-    id
+    name: string
+    id: number
 
-    static create(name){
+    static create(name: string){
         return new Todo(name)
     }
 }
