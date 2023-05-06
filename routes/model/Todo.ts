@@ -1,6 +1,8 @@
+import Entity from "./Entity";
 
-export default class Todo {
+export default class Todo extends Entity{
     constructor(name: string) {
+        super();
         this.name = name;
     }
 

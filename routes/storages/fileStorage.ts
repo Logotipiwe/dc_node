@@ -1,5 +1,5 @@
 import fs from "fs";
-import AbstractStorage from "./storage";
+import AbstractStorage from "./abstractStorage";
 
 export class FileStorage extends AbstractStorage{
     static storageType = "FILE"
@@ -13,51 +13,51 @@ export class FileStorage extends AbstractStorage{
         return FileStorage.storageType;
     }
 
-    getTodos() {
+    getAll() {
         let data = fs.readFileSync('data.json', 'utf8');
         return JSON.parse(data);
     }
 
-    saveTodo(todo) {
-        const todos = this.getTodos();
-        let indexToSave = todos.findIndex(t => t.id === todo.id);
+    saveOne(entity) {
+        const entities = this.getAll();
+        let indexToSave = entities.findIndex(t => t.id === entity.id);
         if (indexToSave !== -1) {
-            todos.splice(indexToSave, 1, todo);
+            entities.splice(indexToSave, 1, entity);
         } else {
-            todo.id = todos.length + 1;
-            todos.push(todo);
+            entity.id = entities.length + 1;
+            entities.push(entity);
         }
-        this.saveTodos(todos);
-        return todo;
+        this.saveMany(entities);
+        return entity;
     }
 
-    saveTodos(todos) {
-        fs.writeFileSync("data.json", JSON.stringify(todos));
-        return todos;
+    saveMany(entities) {
+        fs.writeFileSync("data.json", JSON.stringify(entities));
+        return entities;
     }
 
-    clearTodos() {
+    deleteAll() {
         fs.writeFileSync("data.json", "[]");
     }
 
-    deleteTodo(todo) {
-        const todos = this.getTodos();
-        const indexToDelete = todos.findIndex(x => x.id == todo.id);
-        todos.splice(indexToDelete, 1);
-        this.saveTodos(todos);
+    deleteOne(entity) {
+        const entities = this.getAll();
+        const indexToDelete = entities.findIndex(x => x.id == entity.id);
+        entities.splice(indexToDelete, 1);
+        this.saveMany(entities);
         return true;
     }
 
-    editTodo(todo) {
-        const todos = this.getTodos();
+    editOne(entity) {
+        const entities = this.getAll();
         // noinspection EqualityComparisonWithCoercionJS
-        const todoToChange = todos.find(x => x.id == todo.id);
-        if (!todoToChange) throw new Error("no todo found by id " + todo.id);
+        const entityToChange = entities.find(x => x.id == entity.id);
+        if (!entityToChange) throw new Error("no entity found by id " + entity.id);
 
-        const todoToSave = {...todoToChange, ...todo};
+        const entityToSave = {...entityToChange, ...entity};
 
         // noinspection UnnecessaryLocalVariableJS
-        const saved = this.saveTodo(todoToSave);
+        const saved = this.saveOne(entityToSave);
         return saved;
     }
 }

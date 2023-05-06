@@ -1,4 +1,4 @@
-import AbstractStorage from "./storage";
+import AbstractStorage from "./abstractStorage";
 import {MongoClient} from "mongodb";
 
 export default class MongoStorage extends AbstractStorage {
@@ -19,31 +19,31 @@ export default class MongoStorage extends AbstractStorage {
         return MongoStorage.storageType;
     }
 
-    async getTodos() {
+    async getAll() {
         return await this._client.find().toArray();
     }
 
-    async saveTodo(todo) {
-        await this._client.insertOne(todo);
-        return todo;
+    async saveOne(entity) {
+        await this._client.insertOne(entity)
+        return entity
     }
 
-    async saveTodos(todos) {
-        await this._client.insertMany(todos);
-        return todos;
+    async saveMany(entities) {
+        await this._client.insertMany(entities);
+        return entities;
     }
 
-    async clearTodos() {
+    async deleteAll() {
         await this._client.deleteMany()
     }
 
-    async deleteTodo(todo) {
-        await this._client.deleteOne({_id: todo._id})
+    async deleteOne(entity) {
+        await this._client.deleteOne({_id: entity._id})
     }
 
-    async editTodo(todo) {
-        await this._client.updateOne({_id: todo._id}, {$set: todo})
-        return todo;
+    async editOne(entity) {
+        await this._client.updateOne({_id: entity._id}, {$set: entity})
+        return entity;
     }
 
     async closeConnection(){

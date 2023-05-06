@@ -10,19 +10,25 @@ class StorageFactory {
         MongoStorage
     ]
 
-    static _instances: {[x: number]: string} = {}
+    static _instances = {}
+
+
 
     getStorage() {
-        const dbType = process.env.DB;
+        const dbType: string = StorageFactory.getDbType();
         const storageClass = StorageFactory._storages.find(s=>s.storageType === dbType);
-        let instance = StorageFactory._instances[storageClass];
+        let instance = StorageFactory._instances[dbType];
 
         if(!instance) {
             instance = storageClass.create();
-            StorageFactory._instances[storageClass] = instance
+            StorageFactory._instances[dbType] = instance
         }
 
         return instance;
+    }
+
+    private static getDbType(): string {
+        return process.env.DB || "";
     }
 }
 

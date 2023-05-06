@@ -1,4 +1,4 @@
-import AbstractStorage from "./storage";
+import AbstractStorage from "./abstractStorage";
 
 export class MemoryStorage extends AbstractStorage {
     _data;
@@ -18,47 +18,47 @@ export class MemoryStorage extends AbstractStorage {
         return MemoryStorage.storageType;
     }
 
-    getTodos() {
+    getAll() {
         return this._data;
     }
 
-    saveTodo(todo) {
-        const todos = this.getTodos();
-        let indexToSave = todos.findIndex(t => t.id === todo.id);
+    saveOne(entity) {
+        const entities = this.getAll();
+        let indexToSave = entities.findIndex(t => t.id === entity.id);
         if (indexToSave !== -1) {
-            todos.splice(indexToSave, 1, todo);
+            entities.splice(indexToSave, 1, entity);
         } else {
-            todo.id = todos.length + 1;
-            todos.push(todo);
+            entity.id = entities.length + 1;
+            entities.push(entity);
         }
-        return todo;
+        return entity;
     }
 
-    saveTodos(todos) {
-        this._data = [...todos];
+    saveMany(entities) {
+        this._data = [...entities];
         return this._data;
     }
 
-    clearTodos() {
+    deleteAll() {
         this._data = [];
     }
 
-    deleteTodo(todo) {
-        const todos = this.getTodos();
-        const indexToDelete = todos.findIndex(x => x.id == todo.id);
-        todos.splice(indexToDelete, 1);
-        this.saveTodos(todos);
+    deleteOne(entity) {
+        const entities = this.getAll();
+        const indexToDelete = entities.findIndex(x => x.id == entity.id);
+        entities.splice(indexToDelete, 1);
+        this.saveMany(entities);
         return true;
     }
 
-    editTodo(todo) {
-        const todos = this.getTodos();
-        const todoToChange = todos.find(x => x.id == todo.id);
-        if (!todoToChange) throw new Error("no todo found by id " + todo.id);
+    editOne(entity) {
+        const entities = this.getAll();
+        const entityToChange = entities.find(x => x.id == entity.id);
+        if (!entityToChange) throw new Error("no entity found by id " + entity.id);
 
-        const todoToSave = {...todoToChange, ...todo};
+        const entityToSave = {...entityToChange, ...entity};
 
-        const saved = this.saveTodo(todoToSave);
+        const saved = this.saveOne(entityToSave);
         return saved;
     }
 }
