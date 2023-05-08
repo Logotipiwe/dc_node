@@ -1,4 +1,5 @@
 import {sum} from './sum';
+import {MongoClient} from "mongodb"
 
 describe('sum module', () => {
     test('adds 1 + 2 to equal 3', () => {

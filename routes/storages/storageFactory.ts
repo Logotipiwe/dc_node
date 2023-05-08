@@ -2,6 +2,7 @@
 import {FileStorage} from "./fileStorage";
 import {MemoryStorage} from "./memoryStorage";
 import MongoStorage from "./mongoStorage";
+import AbstractStorage from "./abstractStorage";
 
 class StorageFactory {
     static _storages = [
@@ -14,7 +15,7 @@ class StorageFactory {
 
 
 
-    getStorage() {
+    getStorage(): AbstractStorage {
         const dbType: string = StorageFactory.getDbType();
         const storageClass = StorageFactory._storages.find(s=>s.storageType === dbType);
         let instance = StorageFactory._instances[dbType];
