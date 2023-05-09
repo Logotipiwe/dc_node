@@ -1,35 +1,29 @@
-
-import {FileStorage} from "./fileStorage";
-import {MemoryStorage} from "./memoryStorage";
-import MongoStorage from "./mongoStorage";
 import AbstractStorage from "./abstractStorage";
+import MongoStorage from "./instances/mongoStorage";
+import MemoryStorage from "./instances/memoryStorage";
+import EnvAccessor from "../EnvAccessor";
+import {FileStorage} from "./instances/fileStorage";
 
 class StorageFactory {
-    static _storages = [
-        MemoryStorage,
-        FileStorage,
-        MongoStorage
-    ]
+    static _storages = {
+        "MONGO": ()=> new MongoStorage(),
+        "MEM": () => new MemoryStorage(),
+        "FILE": () => new FileStorage()
+    }
 
-    static _instances = {}
+    static _instances: {[key: string]: AbstractStorage<any>} = {}
 
+    getStorage(): AbstractStorage<any> {
+        const dbType: string = EnvAccessor.getDbType();
 
-
-    getStorage(): AbstractStorage {
-        const dbType: string = StorageFactory.getDbType();
-        const storageClass = StorageFactory._storages.find(s=>s.storageType === dbType);
         let instance = StorageFactory._instances[dbType];
 
-        if(!instance) {
-            instance = storageClass.create();
-            StorageFactory._instances[dbType] = instance
+        if (!instance) {
+            instance = StorageFactory._storages[dbType]();
+            StorageFactory._instances[dbType] = instance;
         }
 
         return instance;
-    }
-
-    private static getDbType(): string {
-        return process.env.DB || "";
     }
 }
 

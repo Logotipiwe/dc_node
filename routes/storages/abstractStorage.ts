@@ -1,27 +1,21 @@
+import Entity from "../model/Entity";
 
-
-export default abstract class AbstractStorage {
-    static create(){
+export default abstract class AbstractStorage<T> {
+    static create<T extends AbstractStorage<any>>(this: { new(): T }) {
+        return new this();
     }
 
-    getStorageType(){
-    }
+    abstract getStorageType()
 
-    getAll() {
-    }
+    abstract getAll(table: string): Promise<T[]>
 
-    saveOne(entity) {
-    }
+    abstract saveOne(table: string, entity: T): Promise<T>
 
-    saveMany(entities) {
-    }
+    abstract saveMany(table: string, entities: T[]): Promise<T[]>
 
-    deleteAll() {
-    }
+    abstract deleteAll(table: string)
 
-    deleteOne(id) {
-    }
+    abstract deleteOne(table: string, entity: T)
 
-    editOne(entity) {
-    }
+    abstract editOne(table: string, entity: T): Promise<T>
 }

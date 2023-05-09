@@ -6,7 +6,6 @@ const config = {
     },
     transform: {
         ...tsjPreset.transform,
-    },
-    modulePaths: ["<rootDir>/routes/"]
+    }
 };
 module.exports = config
