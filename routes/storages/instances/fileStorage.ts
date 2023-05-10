@@ -1,54 +1,68 @@
-import fs from 'fs';
+import * as fs from 'fs';
 import AbstractStorage from "../abstractStorage";
+import Entity from "../../model/Entity";
+import e from "express";
 
-export class FileStorage extends AbstractStorage<Object>{
-
-    getAll(table:string) {
-        let data = fs.readFileSync('data.json', 'utf8');
-        return JSON.parse(data)[table];
+export class FileStorage extends AbstractStorage<Entity>{
+    private getDataFromFile(){
+        return JSON.parse(fs.readFileSync('data.json', 'utf8'));
     }
 
-    saveOne(table: string, entity) {
-        const entities = this.getAll(table);
-        let indexToSave = entities.findIndex(t => t.id === entity.id);
-        if (indexToSave !== -1) {
-            entities.splice(indexToSave, 1, entity);
-        } else {
-            entity.id = entities.length + 1;
-            entities.push(entity);
+    private saveDataToFile(data: Entity){
+        return fs.writeFileSync("data.json", JSON.stringify(data));
+    }
+
+    async getAll(table:string) {
+        let json = this.getDataFromFile();
+        if(!json[table]){
+            json[table] = [];
         }
-        this.saveMany(table, entities);
-        return entity;
+        return json[table];
     }
 
-    saveMany(table: string, entities) {
-        fs.writeFileSync("data.json", JSON.stringify(entities));
+    async saveOne(table: string, entity) {
+        let savedEntities = await this.saveMany(table, [entity]);
+        return savedEntities[0];
+    }
+
+    async saveMany(table: string, entities: Entity[]) {
+        const data = this.getDataFromFile();
+        if(!data[table]){
+            data[table] = []
+        }
+        const existing: Entity[] = data[table];
+        entities.forEach(toSave=>{
+            let indexToSave = existing.findIndex(t => t.id === toSave.id);
+            if (indexToSave !== -1) {
+                existing.splice(indexToSave, 1, toSave);
+            } else {
+                toSave.id = existing.length + 1;
+                existing.push(toSave);
+            }
+        })
+        this.saveDataToFile(data);
+
         return entities;
     }
 
-    deleteAll(table:string) {
-        fs.writeFileSync("data.json", "{}");
-    }
-
-    deleteOne(table: string, entity) {
-        const entities = this.getAll(table);
-        const indexToDelete = entities.findIndex(x => x.id == entity.id);
-        entities.splice(indexToDelete, 1);
-        this.saveMany(table, entities);
+    async deleteAll(table:string) {
+        const data = this.getDataFromFile();
+        data[table] = []
+        this.saveDataToFile(data);
         return true;
     }
 
-    editOne(table:string, entity: any) {
-        const entities = this.getAll(table);
-        // noinspection EqualityComparisonWithCoercionJS
-        const entityToChange = entities.find(x => x.id == entity.id);
-        if (!entityToChange) throw new Error("no entity found by id " + entity.id);
+    async deleteOne(table: string, entity) {
+        const data = this.getDataFromFile();
+        const entities = data[table];
+        const indexToDelete = entities.findIndex(x => x.id == entity.id);
+        entities.splice(indexToDelete, 1);
+        this.saveDataToFile(data)
+        return true;
+    }
 
-        const entityToSave = {...entityToChange, ...entity};
-
-        // noinspection UnnecessaryLocalVariableJS
-        const saved = this.saveOne(table, entityToSave);
-        return saved;
+    async editOne(table:string, entity: Entity) {
+        return this.saveOne(table, entity)
     }
 
     getStorageType() {
