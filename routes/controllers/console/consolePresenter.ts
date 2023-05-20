@@ -1,13 +1,23 @@
 import Todo from "../../model/Todo";
 
-export function printTodos(todos: Todo[]){
-    let ans = "TODOS: \n";
-    if(todos.length === 0){
-        ans += "empty"
+class ConsolePresenter {
+    printTodos(todos: Todo[]) {
+        let ans = "TODOS: \n";
+        if (todos.length === 0) {
+            ans += "empty"
+            return ans;
+        }
+        todos.forEach((todo, i) => {
+            ans += `${i}. Id: ${todo.id}; name: ${todo.name}\n`
+        })
         return ans;
     }
-    todos.forEach((todo, i)=>{
-        ans += `${i}. Id: ${todo.id}; name: ${todo.name}\n`
-    })
-    return ans;
+    getHelp(): string{
+        return `r - получить все. c - создать. u - обновить`;
+    }
+
+
 }
+
+let consolePresenter = new ConsolePresenter();
+export default consolePresenter;

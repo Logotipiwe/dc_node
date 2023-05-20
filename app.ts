@@ -1,7 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import indexRouter from "./routes";
-import createRouter from "./routes/controllers/web/controller"
+import createRouter from "./routes/controllers/web/webController"
 
 const app = express();
 

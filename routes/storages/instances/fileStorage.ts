@@ -36,7 +36,7 @@ export class FileStorage extends AbstractStorage<Entity>{
             if (indexToSave !== -1) {
                 existing.splice(indexToSave, 1, toSave);
             } else {
-                toSave.id = existing.length + 1;
+                toSave.id = (existing.length + 1).toString();
                 existing.push(toSave);
             }
         })

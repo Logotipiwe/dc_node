@@ -23,7 +23,7 @@ export default class MemoryStorage extends AbstractStorage<Object> {
         if (indexToSave !== -1) {
             entities.splice(indexToSave, 1, entity);
         } else {
-            entity.id = entities.length + 1;
+            entity.id = (entities.length + 1).toString();
             entities.push(entity);
         }
         return entity;

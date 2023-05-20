@@ -1,30 +1,30 @@
 import express from "express";
-import {getCreationForm, printTodos} from "./presenter";
-import todoService from "../../todoService";
+import {getCreationForm, printTodos} from "./webPresenter";
+import todoService from "../../services/todoService";
 const router = express.Router();
 
 router.post("/create", async (req, res) => {
     const name = req.body.name
     if(name) {
-        await todoService.createTodo(name);
+        await todoService.create(name);
     }
     res.redirect("/");
 });
 
 router.post('/delete/:id', async (req, res) => {
     console.log(req.params.id);
-    await todoService.deleteTodo(req.body);
+    await todoService.delete(req.body);
     res.redirect("/");
 });
 
 router.post('/edit/:id', async (req, res) => {
     const id = req.params.id;
-    await todoService.editTodo({...req.body, id});
+    await todoService.editOne({...req.body, id});
     res.redirect("/");
 });
 
 router.get('/', async function(req, res, next) {
-    const json = await todoService.getTodos();
+    const json = await todoService.getAll();
     res.send(getCreationForm() + printTodos(json));
 });
 

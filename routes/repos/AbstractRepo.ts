@@ -1,6 +1,7 @@
 import Entity from "../model/Entity";
 import factory from "../storages/storageFactory";
 import AdapterFactory from "../adapters/AdapterFactory";
+import AbstractStorage from "../storages/abstractStorage";
 export default abstract class AbstractRepo<T extends Entity>{
 
     abstract getTable(): string;
@@ -9,6 +10,14 @@ export default abstract class AbstractRepo<T extends Entity>{
         const documents = await storage.getAll(this.getTable());
         const entityAdapter = AdapterFactory.getAdapter();
         return entityAdapter.toEntities(documents);
+    }
+
+    async getOne(id: string): Promise<T> {
+        const storage: AbstractStorage<T> = factory.getStorage();
+        const documents = await storage.getAll(this.getTable());
+        const entityAdapter = AdapterFactory.getAdapter();
+        const entities: T[] =  entityAdapter.toEntities(documents);
+        return entities.find(e=>e.id === id);
     }
     async saveOne(entity: T): Promise<T>{
         const storage = factory.getStorage();
@@ -26,9 +35,10 @@ export default abstract class AbstractRepo<T extends Entity>{
         await factory.getStorage().deleteAll(this.getTable());
         return true;
     }
-    async deleteOne(entity: T): Promise<boolean>{
+    async deleteOne(id: string): Promise<boolean>{
+        const toDelete = await this.getOne(id);
         const adapter = AdapterFactory.getAdapter()
-        await factory.getStorage().deleteOne(this.getTable(), adapter.toDocument(entity))
+        await factory.getStorage().deleteOne(this.getTable(), adapter.toDocument(toDelete))
         return true
     }
     async editOne(entity: T): Promise<T>{
