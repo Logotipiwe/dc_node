@@ -9,7 +9,6 @@ class ListService extends CrudService<List>{
     getRepo(): AbstractRepo<List> {
         return listRepo;
     }
-
 }
 
 const listService = new ListService();

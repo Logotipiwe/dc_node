@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env DB=MONGO nodemon --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
-    "startConsole": "cross-env DB=FILE nodemon --experimental-specifier-resolution=node --loader=ts-node/esm bin/console.js",
+    "start": "cross-env DB=MONGO nodemon --ignore 'data.json' --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
+    "startConsole": "cross-env DB=FILE nodemon --ignore 'data.json' --experimental-specifier-resolution=node --loader=ts-node/esm bin/console.js",
     "start2": "node bin/www.js",
     "test": "jest routes/sum.test.ts"
   },
