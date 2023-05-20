@@ -1,8 +1,13 @@
-
-
 export default abstract class AbstractAdapter<EntityType, DocType>{
-    abstract toDocuments(from: EntityType[]): DocType[]
+    toDocuments(from: EntityType[]): DocType[] {
+        return from.map(this.toDocument);
+    }
+
     abstract toDocument(from: EntityType): DocType
-    abstract toEntities(from: DocType[]): EntityType[]
+
+    toEntities(from: DocType[]): EntityType[] {
+        return from.map(this.toEntity)
+    }
+
     abstract toEntity(from: DocType): EntityType
 }

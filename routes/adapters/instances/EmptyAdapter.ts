@@ -1,4 +1,4 @@
-import AbstractAdapter from "./AbstractAdapter";
+import AbstractAdapter from "../AbstractAdapter";
 
 class EmptyAdapter extends AbstractAdapter<any, any>{
     toDocument(from: any): any {

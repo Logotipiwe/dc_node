@@ -1,9 +1,10 @@
 import AbstractRepo from "./AbstractRepo";
 import Todo from "../model/Todo";
+import Tables from "../model/Tables";
 
 class TodosRepo extends AbstractRepo<Todo> {
     getTable(): string {
-        return "todos";
+        return Tables.TODOS;
     }
 }
 

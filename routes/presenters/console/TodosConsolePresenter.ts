@@ -8,11 +8,12 @@ class TodosConsolePresenter {
             return ans;
         }
         todos.forEach((todo, i) => {
-            ans += `${i}. Id: ${todo.id}; name: ${todo.name}\n`
+            let listIdToDisplay = todo.listId?.substring(0, Math.min(3, todo.listId.length));
+            ans += `${i}. Id: ${todo.id}; name: ${todo.name}; List: ${listIdToDisplay}\n`
         })
         return ans;
     }
-    getHelp(): string{
+    getHelp(): string {
         return `r - получить все. c - создать. u - обновить`;
     }
 
