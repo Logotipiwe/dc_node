@@ -1,5 +1,5 @@
 import todoService from "../../services/todoService";
-import consolePresenter from "./TodosConsolePresenter";
+import consolePresenter from "../../presenters/console/TodosConsolePresenter";
 import Todo from "../../model/Todo";
 import todoConsoleController from "./TodoConsoleController";
 
@@ -15,7 +15,7 @@ export async function processConsole(input: string): Promise<string> {
     if(s === "todo") {
         return todoConsoleController.processConsole(args.splice(1));
     // } else if (s === "list"){
-        //     return
+    //     return
     }
     return getHelp();
 }

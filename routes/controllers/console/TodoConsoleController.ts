@@ -1,8 +1,9 @@
 import todoService from "../../services/todoService";
-import consolePresenter from "./TodosConsolePresenter";
+import consolePresenter from "../../presenters/console/TodosConsolePresenter";
 import Todo from "../../model/Todo";
+import AbstractConsoleController from "../../presenters/AbstractConsoleController";
 
-class TodoConsoleController {
+class TodoConsoleController extends AbstractConsoleController {
     getHelp(): string {
         return "c - create. u - update. d - delete. r - read"
     }
