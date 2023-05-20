@@ -16,6 +16,11 @@ class TodoService {
         return await todosRepo.editOne(todo);
     }
 
+    async getTodo(id: string){
+        let todos = await this.getTodos();
+        return todos.find(t=>t.id === id);
+    }
+
     async getTodos() {
         return await todosRepo.getAll();
     }

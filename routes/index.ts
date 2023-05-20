@@ -1,3 +1,3 @@
-import router from "./controllers/controller";
+import router from "./controllers/web/controller";
 
 export default router;

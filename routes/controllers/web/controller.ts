@@ -1,6 +1,6 @@
 import express from "express";
 import {getCreationForm, printTodos} from "./presenter";
-import todoService from "../todoService";
+import todoService from "../../todoService";
 const router = express.Router();
 
 router.post("/create", async (req, res) => {

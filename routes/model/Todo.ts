@@ -7,7 +7,7 @@ export default class Todo extends Entity{
     }
 
     name: string
-    id: number
+    id: string
 
     static create(name: string){
         return new Todo(name)
