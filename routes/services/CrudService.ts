@@ -25,4 +25,8 @@ export default abstract class CrudService<E extends Entity> {
     async getAll(): Promise<E[]>{
         return await this.getRepo().getAll();
     }
+
+    async deleteAll() {
+        await this.getRepo().deleteAll();
+    }
 }
