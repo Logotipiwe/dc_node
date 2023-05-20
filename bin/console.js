@@ -1,4 +1,4 @@
-import {processConsole} from "../routes/controllers/console/consoleController.js";
+import {processConsole} from "../routes/controllers/console/consoleParser.ts";
 import readline from "readline";
 
 let continueFlag = true

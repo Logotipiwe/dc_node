@@ -1,6 +1,6 @@
 import Todo from "../../model/Todo";
 
-class ConsolePresenter {
+class TodosConsolePresenter {
     printTodos(todos: Todo[]) {
         let ans = "TODOS: \n";
         if (todos.length === 0) {
@@ -19,5 +19,5 @@ class ConsolePresenter {
 
 }
 
-let consolePresenter = new ConsolePresenter();
+let consolePresenter = new TodosConsolePresenter();
 export default consolePresenter;
