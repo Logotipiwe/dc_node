@@ -33,6 +33,10 @@ class ListRepo extends AbstractRepo<List>{
         entities.forEach(list=> list.todos=[])
         return super.saveMany(entities);
     }
+
+    sendInfo(clientInfo){
+        console.log(clientInfo)
+    }
 }
 
 

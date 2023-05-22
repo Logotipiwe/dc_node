@@ -1,10 +1,21 @@
+import List from "../../model/List";
+
 export function getCreationForm() {
     return `
-<form action="/create" method="post"> 
+<form action="/lists/create" method="post"> 
     <input type="text" placeholder="Name..." name="name">
-    <input type="submit">
+    <select name="type">
+        <option value="num">Нумерованный</option> 
+        <option value="bullet">Маркированный</option>
+    </select>
+    <input type="submit" value="+ список">
 </form> 
     `
+}
+
+export function getIndex(lists: List[]){
+    return getCreationForm() + printLists(lists);
+
 }
 
 export function printTodos(todos) {
@@ -33,4 +44,29 @@ function printTodo(todo) {
     return todo.id + ". " + todo.name
         + getEditForm(todo)
         + getDeleteForm(todo);
+}
+
+function printAddTodoToListForm(list: List) {
+    return `<form action="/todos/create" method="post">
+        <input name="name" placeholder="Name...">
+        <input name="list" type="hidden" value="${list.id}">
+        <input type="submit" value="+todo">
+    </form>`
+}
+
+function printListDeleteForm(list: List) {
+    return `<form action="/lists/delete/${list.id}" method="post">
+        <input type="submit" value="-list">
+    </form>`
+}
+
+function printLists(lists: List[]): string {
+    return lists.map((list, i)=>{
+        return `${i}. ${list.name}<br/>
+        ${printAddTodoToListForm(list)}<br/>
+        ${printListDeleteForm(list)}<br/>
+        TODOs:<br/> 
+        <div style="margin-left: 20px">${list.todos.map(printTodo)}</div>
+        `;
+    }).join("<br/>")
 }
