@@ -1,6 +1,6 @@
 import express from "express";
 import {getCreationForm, printTodos} from "../../presenters/web/webPresenter";
-import todoService from "../../services/todoService";
+import todoService from "../../services/TodoService";
 import Todo from "../../model/Todo";
 const router = express.Router();
 

@@ -2,7 +2,7 @@ import AbstractConsoleController from "../../presenters/AbstractConsoleControlle
 import listService from "../../services/ListService";
 import listsConsolePresenter from "../../presenters/console/ListsConsolePresenter";
 import List from "../../model/List";
-import todoService from "../../services/todoService";
+import todoService from "../../services/TodoService";
 
 
 class ListConsoleController extends AbstractConsoleController{

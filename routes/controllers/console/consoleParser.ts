@@ -1,4 +1,4 @@
-import todoService from "../../services/todoService";
+import todoService from "../../services/TodoService";
 import consolePresenter from "../../presenters/console/TodosConsolePresenter";
 import Todo from "../../model/Todo";
 import todoConsoleController from "./TodoConsoleController";

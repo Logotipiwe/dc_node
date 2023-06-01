@@ -1,7 +1,7 @@
 import AbstractRepo from "./AbstractRepo";
 import List from "../model/List";
 import Tables from "../model/Tables";
-import todoService from "../services/todoService";
+import todoService from "../services/TodoService";
 
 class ListRepo extends AbstractRepo<List>{
     getTable(): string {

@@ -1,6 +1,6 @@
 import express from "express";
 import {getCreationForm, printTodos} from "../../presenters/web/webPresenter";
-import todoService from "../../services/todoService";
+import todoService from "../../services/TodoService";
 import listService from "../../services/ListService";
 import List from "../../model/List";
 const router = express.Router();
@@ -27,12 +27,5 @@ router.post('/edit/:id', async (req, res) => {
     await listService.editOne(list);
     res.redirect("/");
 });
-
-// router.get('lists/', async function(req, res, next) {
-//     const json = await listService.getAll();
-//     res.send(getCreationForm() + printTodos(json));
-// });
-
-// console.log(process.env.DB)
 
 export default router;
