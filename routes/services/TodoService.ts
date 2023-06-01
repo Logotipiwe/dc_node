@@ -4,8 +4,9 @@ import Entity from "../model/entities/Entity";
 import AbstractRepo from "../repos/AbstractRepo";
 import CrudService from "./CrudService";
 import List from "../model/entities/List";
+import SecuredCrudService from "./SecuredCrudService";
 
-class TodoService extends CrudService<Todo> {
+class TodoService extends SecuredCrudService<Todo> {
     _repo = todosRepo;
     getRepo(): AbstractRepo<Todo> {
         return this._repo;

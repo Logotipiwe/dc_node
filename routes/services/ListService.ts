@@ -3,9 +3,10 @@ import List from "../model/entities/List";
 import AbstractRepo from "../repos/AbstractRepo";
 import listRepo from "../repos/ListRepo";
 import todoService from "./TodoService";
+import SecuredCrudService from "./SecuredCrudService";
 
 
-class ListService extends CrudService<List>{
+class ListService extends SecuredCrudService<List>{
     getRepo(): AbstractRepo<List> {
         return listRepo;
     }
