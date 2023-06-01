@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import AbstractStorage from "../abstractStorage";
-import Entity from "../../model/Entity";
+import Entity from "../../model/entities/Entity";
 import e from "express";
 
 export class FileStorage extends AbstractStorage<Entity>{

@@ -2,7 +2,7 @@ import factory from "./storages/storageFactory";
 import MongoStorage from "./storages/instances/mongoStorage";
 import todosRepo from "./repos/TodosRepo";
 import todoService from "./services/TodoService";
-import Todo from "./model/Todo";
+import Todo from "./model/entities/Todo";
 
 describe("app test", () => {
     describe("mongo storage", () => {

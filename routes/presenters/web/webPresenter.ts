@@ -1,4 +1,4 @@
-import List from "../../model/List";
+import List from "../../model/entities/List";
 import httpContext from "express-http-context";
 
 export function getCreationForm() {

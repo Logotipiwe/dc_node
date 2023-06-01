@@ -1,4 +1,4 @@
-import Todo from "../../model/Todo";
+import Todo from "../../model/entities/Todo";
 
 class TodosConsolePresenter {
     printTodos(todos: Todo[]) {

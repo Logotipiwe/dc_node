@@ -1,5 +1,5 @@
-import List from "../../model/List";
-import Todo from "../../model/Todo";
+import List from "../../model/entities/List";
+import Todo from "../../model/entities/Todo";
 
 
 class ListsConsolePresenter {

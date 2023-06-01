@@ -1,4 +1,4 @@
-import Entity from "../model/Entity";
+import Entity from "../model/entities/Entity";
 import AbstractRepo from "../repos/AbstractRepo";
 
 export default abstract class CrudService<E extends Entity> {

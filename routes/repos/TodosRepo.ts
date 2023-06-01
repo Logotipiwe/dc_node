@@ -1,10 +1,10 @@
 import AbstractRepo from "./AbstractRepo";
-import Todo from "../model/Todo";
-import Tables from "../model/Tables";
+import Todo from "../model/entities/Todo";
+import EntitiesTables from "../model/entities/EntitiesTables";
 
 class TodosRepo extends AbstractRepo<Todo> {
     getTable(): string {
-        return Tables.TODOS;
+        return EntitiesTables.TODOS;
     }
 }
 

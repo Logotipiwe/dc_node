@@ -1,7 +1,7 @@
 import AbstractConsoleController from "../../presenters/AbstractConsoleController";
 import listService from "../../services/ListService";
 import listsConsolePresenter from "../../presenters/console/ListsConsolePresenter";
-import List from "../../model/List";
+import List from "../../model/entities/List";
 import todoService from "../../services/TodoService";
 
 

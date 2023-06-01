@@ -1,11 +1,11 @@
 import AbstractRepo from "./AbstractRepo";
-import List from "../model/List";
-import Tables from "../model/Tables";
+import List from "../model/entities/List";
+import EntitiesTables from "../model/entities/EntitiesTables";
 import todoService from "../services/TodoService";
 
 class ListRepo extends AbstractRepo<List>{
     getTable(): string {
-        return Tables.LISTS;
+        return EntitiesTables.LISTS;
     }
 
     async getOne(id: string) {

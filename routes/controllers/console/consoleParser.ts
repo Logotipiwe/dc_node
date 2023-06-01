@@ -1,6 +1,6 @@
 import todoService from "../../services/TodoService";
 import consolePresenter from "../../presenters/console/TodosConsolePresenter";
-import Todo from "../../model/Todo";
+import Todo from "../../model/entities/Todo";
 import todoConsoleController from "./TodoConsoleController";
 import listConsoleController from "./ListConsoleController";
 

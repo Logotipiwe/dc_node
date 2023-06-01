@@ -2,7 +2,7 @@ import storageFactory from "./storages/storageFactory";
 import MongoStorage from "./storages/instances/mongoStorage";
 import MemoryStorage from "./storages/instances/memoryStorage";
 import {MongoClient, ObjectId} from "mongodb";
-import Todo from "./model/Todo";
+import Todo from "./model/entities/Todo";
 import TodosRepo from "./repos/TodosRepo";
 import todosRepo from "./repos/TodosRepo";
 

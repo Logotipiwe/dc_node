@@ -2,7 +2,7 @@ import express from "express";
 import {getCreationForm, printTodos} from "../../presenters/web/webPresenter";
 import todoService from "../../services/TodoService";
 import listService from "../../services/ListService";
-import List from "../../model/List";
+import List from "../../model/entities/List";
 const router = express.Router();
 
 router.post("/create", async (req, res) => {

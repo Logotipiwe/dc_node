@@ -1,7 +1,7 @@
 import AbstractAdapter from "../AbstractAdapter";
-import Todo from "../../model/Todo";
+import Todo from "../../model/entities/Todo";
 import {Document, ObjectId, WithId} from "mongodb";
-import Entity from "../../model/Entity";
+import Entity from "../../model/entities/Entity";
 
 class MongoAdapter extends AbstractAdapter<Entity, WithId<Document>>{
     toDocument(from: Entity): WithId<Document> {
@@ -9,7 +9,7 @@ class MongoAdapter extends AbstractAdapter<Entity, WithId<Document>>{
     }
 
     toEntity(from: WithId<Document>): Entity {
-        let entity = {...from, id: from._id.toString()};
+        let entity = {...from, id: from._id.toString(), userId: from.userId};
         delete entity._id;
         return entity;
     }

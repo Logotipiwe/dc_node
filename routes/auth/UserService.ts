@@ -10,7 +10,7 @@ class UserService{
         httpContext.set("user", undefined);
     }
 
-    getUser(){
+    getUser(): User{
         return httpContext.get("user");
     }
 }

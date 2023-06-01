@@ -1,6 +1,6 @@
 import AbstractStorage from "../abstractStorage";
 import {Db, Document, MongoClient, WithId} from "mongodb";
-import Todo from "../../model/Todo";
+import Todo from "../../model/entities/Todo";
 
 export default class MongoStorage extends AbstractStorage<WithId<Document>> {
     static storageType = "MONGO"

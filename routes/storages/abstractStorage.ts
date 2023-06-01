@@ -1,4 +1,4 @@
-import Entity from "../model/Entity";
+import Entity from "../model/entities/Entity";
 
 export default abstract class AbstractStorage<T> {
     static create<T extends AbstractStorage<any>>(this: { new(): T }) {

@@ -1,5 +1,5 @@
 import AbstractStorage from "../abstractStorage";
-import Todo from "../../model/Todo";
+import Todo from "../../model/entities/Todo";
 import e from "express";
 
 export default class MemoryStorage extends AbstractStorage<Object> {
