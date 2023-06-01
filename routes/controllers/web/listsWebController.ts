@@ -5,7 +5,7 @@ import listService from "../../services/ListService";
 import List from "../../model/List";
 const router = express.Router();
 
-router.post("/lists/create", async (req, res) => {
+router.post("/create", async (req, res) => {
     const name = req.body.name;
     const type = req.body.type === "num" ? "num" : "bullet";
     if(name) {
@@ -14,12 +14,12 @@ router.post("/lists/create", async (req, res) => {
     res.redirect("/");
 });
 
-router.post('/lists/delete/:id', async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
     await listService.delete(req.params.id);
     res.redirect("/");
 });
 
-router.post('/lists/edit/:id', async (req, res) => {
+router.post('/edit/:id', async (req, res) => {
     const id = req.params.id;
     const list = await listService.getOne(id);
     if(req.body.name) list.name = req.body.name;

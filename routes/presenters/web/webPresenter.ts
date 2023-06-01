@@ -24,7 +24,7 @@ export function printTodos(todos) {
 
 function getDeleteForm(todo) {
     return `
-<form action="/delete/${todo.id}" method="post">
+<form action="/todos/delete/${todo.id}" method="post">
     <input type="hidden" name="id" value="${todo.id}">
     <input type="submit" value="Удалить todo ${todo.name}">
 </form>
@@ -33,7 +33,7 @@ function getDeleteForm(todo) {
 
 function getEditForm(todo) {
     return `
-<form action="/edit/${todo.id}" method="post">
+<form action="/todos/edit/${todo.id}" method="post">
     <input type="text" name="name" placeholder="Edit...">
     <input type="hidden" name="id" value="${todo.id}">
 </form>
