@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env DB=MEM nodemon --ignore 'data.json' --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
-    "startConsole": "cross-env DB=MEM nodemon --ignore 'data.json' --experimental-specifier-resolution=node --loader=ts-node/esm bin/console.js",
+    "start": "cross-env DB=MEM nodemon -w ./ --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
+    "startConsole": "cross-env DB=MEM nodemon --ignore=data.json --experimental-specifier-resolution=node --loader=ts-node/esm bin/console.js",
     "start2": "node bin/www.js",
     "test": "jest routes/sum.test.ts"
   },
@@ -27,8 +27,10 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
     "express": "^4.18.2",
+    "express-http-context": "^1.2.4",
     "mongodb": "^5.4.0",
     "morgan": "^1.10.0",
     "prompt-sync": "^4.2.0"
