@@ -29,7 +29,7 @@ export default abstract class SecuredCrudService<E extends Entity> extends CrudS
 
     async getAll(): Promise<E[]> {
         let all = await super.getAll();
-        return all.filter(e=> this.checkAccess(e));
+        return all.filter(e=> this.hasAccess(e));
     }
 
     async getOneInsecure(id: string): Promise<E> {
@@ -37,9 +37,14 @@ export default abstract class SecuredCrudService<E extends Entity> extends CrudS
     }
 
     checkAccess(entity: E){
-        if(!accessControl.hasAccessToOne(entity)){
+        if(!this.hasAccess(entity)){
             throw new Error("No access")
         }
+    }
+
+    hasAccess(entity: E){
+        return accessControl.hasAccessToOne(entity);
+
     }
 
     handleCreation(entity: E): void{

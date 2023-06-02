@@ -1,7 +1,7 @@
 import Entity from "../model/entities/Entity";
 import userService from "./UserService";
 
-class AccessControl{
+class AccessControl {
     hasAccessToOne(entity: Entity){
         const user = userService.getUser();
         return user.id === entity.userId;

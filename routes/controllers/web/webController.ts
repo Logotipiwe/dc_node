@@ -4,8 +4,7 @@ import listService from "../../services/ListService";
 const router = express.Router();
 
 router.get('/', async function(req, res, next) {
-    const lists = await listService.getAll();
-    res.send(getIndex(lists));
+    res.send(await getIndex());
 });
 
 console.log(process.env.DB)
