@@ -3,18 +3,18 @@ import Todo from "../../model/entities/Todo";
 import e from "express";
 
 export default class MemoryStorage extends AbstractStorage<Object> {
-    _data: Object
+    static _data: Object
 
     constructor() {
         super();
-        this._data = {};
+        MemoryStorage._data = {};
     }
 
     async getAll(table:string) {
-        if(!this._data[table]){
-            this._data[table] = [];
+        if(!MemoryStorage._data[table]){
+            MemoryStorage._data[table] = [];
         }
-        return this._data[table];
+        return MemoryStorage._data[table];
     }
 
     async saveOne(table: string, entity: Todo) {
@@ -37,7 +37,7 @@ export default class MemoryStorage extends AbstractStorage<Object> {
     }
 
     async deleteAll(table: string, ) {
-        this._data[table] = [];
+        MemoryStorage._data[table] = [];
     }
 
     async deleteOne(table: string, entity) {

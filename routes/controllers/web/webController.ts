@@ -1,12 +1,25 @@
 import express from "express";
-import {getIndex} from "../../presenters/web/webPresenter";
 import listService from "../../services/ListService";
+import httpContext from "express-http-context";
+import listsPresenter from "../../presenters/web/ListsPresenter";
+import authPresenter from "../../presenters/web/AuthPersenter";
 const router = express.Router();
 
 router.get('/', async function(req, res, next) {
-    res.send(await getIndex());
+    try {
+        let page = ""
+        const user = httpContext.get("user");
+        if (user) {
+            const lists = await listService.getAll();
+            page += authPresenter.getLoginInfo(user)
+                + listsPresenter.creationForm()
+                + listsPresenter.printLists(lists);
+        } else {
+            page += authPresenter.getAuthForm();
+        }
+        res.send(page);
+    } catch (e) {
+        next(e)
+    }
 });
-
-console.log(process.env.DB)
-
 export default router;
