@@ -1,6 +1,9 @@
 import User from "../model/User";
+import EnvAccessor from "../EnvAccessor";
 
 class GoogleOAuthService {
+    getCodeURL = "https://accounts.google.com/o/oauth2/v2/auth"
+    clientId = "319710408255-ntkf14k8ruk4p98sn2u1ho4j99rpjqja.apps.googleusercontent.com"
     async authUser(accessToken: string){
         const user = await fetch("https://www.googleapis.com/oauth2/v3/userinfo?alt=json", {
             headers: { "Authorization": "Bearer " + accessToken }
@@ -22,7 +25,7 @@ class GoogleOAuthService {
             client_secret: "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",
             code,
             grant_type: "authorization_code",
-            redirect_uri: "http://localhost:3000/g_oauth"
+            redirect_uri: EnvAccessor.getBaseUrl() + "/g_oauth"
         }
         const formBody2 = [];
         for (const property in details) {

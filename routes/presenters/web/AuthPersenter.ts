@@ -1,4 +1,6 @@
 import User from "../../model/User";
+import EnvAccessor from "../../EnvAccessor";
+import GoogleOAuthService from "../../auth/GoogleOAuthService";
 
 class AuthPresenter {
     getLoginInfo(user: User) {
@@ -6,7 +8,15 @@ class AuthPresenter {
     }
 
     getAuthForm() {
-        return "<a href='https://accounts.google.com/o/oauth2/v2/auth?client_id=319710408255-ntkf14k8ruk4p98sn2u1ho4j99rpjqja.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fg_oauth&response_type=code&scope=profile'>ВОЙТИ</a><br/>"
+        const url = new URL(GoogleOAuthService.getCodeURL);
+        let init: Record<string, string> = {
+            client_id: GoogleOAuthService.clientId,
+            redirect_uri: EnvAccessor.getBaseUrl() + "/g_oauth",
+            response_type: "code",
+            scope: "profile"
+        };
+        url.search = new URLSearchParams(init).toString();
+        return `<a href='${url}'>ВОЙТИ</a><br/>`
     }
 
 }

@@ -1,9 +1,26 @@
 
 export default class EnvAccessor{
     static getDbType(): string {
-        if(!process.env.DB){
-            throw new Error("NO DB TYPE IS SET!!!")
+        return this.tryGetVar("DB")
+    }
+
+    static getBaseUrl(): string{
+        return this.tryGetVar("BASE")
+    }
+
+    static getMongoUrl(): string {
+        return this.tryGetVar("MONGO_URL");
+    }
+
+    static tryGetVar(name: string): string{
+        if(!process.env[name]){
+            throw new Error(`Cannot get ${name} env variable. Maybe it's not set!`)
         }
-        return process.env.DB;
+        return process.env[name];
+    }
+
+    static ensureNecessaryVars() {
+        this.getBaseUrl();
+        this.getDbType();
     }
 }

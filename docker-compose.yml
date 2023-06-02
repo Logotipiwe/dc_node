@@ -8,6 +8,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mg_vol:/data/db
+#   for local
+    ports:
+      - 27017:27017
 
   mongo-express:
     image: mongo-express
@@ -23,7 +26,10 @@ services:
     build: ./
     restart: always
     ports:
-      - 8081:3000
+      - 8080:3000
+    environment:
+      DB: MONGO
+      MONGO_URL: mongodb://root:example@localhost:27017/
 
 networks:
   dc-net:

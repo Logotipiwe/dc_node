@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import webControllers from "./routes/controllers/web";
 import httpContext from "express-http-context";
 import {authMiddleware} from "./routes/auth/authMiddleware";
+import EnvAccessor from "./routes/EnvAccessor";
 
 const app = express();
 
@@ -18,5 +19,7 @@ app.use(httpContext.middleware);
 webControllers.forEach((value, key) => {
     app.use(key, value)
 })
+
+EnvAccessor.ensureNecessaryVars()
 
 export default app;

@@ -1,12 +1,13 @@
 import AbstractStorage from "../abstractStorage";
 import {Db, Document, MongoClient, WithId} from "mongodb";
 import Todo from "../../model/entities/Todo";
+import EnvAccessor from "../../EnvAccessor";
 
 export default class MongoStorage extends AbstractStorage<WithId<Document>> {
     static storageType = "MONGO"
     constructor() {
         super();
-        this._client = new MongoClient("mongodb://root:example@localhost:27017/")
+        this._client = new MongoClient(EnvAccessor.getMongoUrl())
             .db("db");
     }
 
