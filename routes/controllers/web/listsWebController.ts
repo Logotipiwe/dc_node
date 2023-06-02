@@ -3,27 +3,38 @@ import listService from "../../services/ListService";
 import List from "../../model/entities/List";
 const router = express.Router();
 
-router.post("/create", async (req, res) => {
-    const name = req.body.name;
-    const type = req.body.type === "num" ? "num" : "bullet";
-    if(name) {
-        await listService.create(List.create(name,type));
+router.post("/create", async (req, res, next) => {
+    try {
+        const name = req.body.name;
+        const type = req.body.type === "num" ? "num" : "bullet";
+        if (name) {
+            await listService.create(List.create(name, type));
+        }
+        res.redirect("/");
+    } catch (e) {
+        next(e)
     }
-    res.redirect("/");
 });
 
-router.post('/delete/:id', async (req, res) => {
-    await listService.delete(req.params.id);
-    res.redirect("/");
+router.post('/delete/:id', async (req, res, next) => {
+    try {
+        await listService.delete(req.params.id);
+        res.redirect("/");
+    } catch (e) {
+        next(e)
+    }
 });
 
-router.post('/edit/:id', async (req, res) => {
-    const id = req.params.id;
-    const list = await listService.getOne(id);
-    if(req.body.name) list.name = req.body.name;
-    if(req.body.type) list.type = req.body.type === "num" ? "num" : "bullet";
-    await listService.editOne(list);
-    res.redirect("/");
+router.post('/edit/:id', async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const list = await listService.getOne(id);
+        list.edit(req.body);
+        const edited = await listService.editOne(list);
+        res.redirect("/");
+    } catch (e) {
+        next(e)
+    }
 });
 
 export default router;

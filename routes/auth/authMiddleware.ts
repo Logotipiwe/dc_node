@@ -9,6 +9,8 @@ export const authMiddleware = async (req, res, next) => {
         userService.setUserInRequest(user)
     } else {
         userService.clearUser()
+        console.log("Unauthorized")
+        if(res.req.path !== "/") res.redirect("/");
     }
     next();
 }

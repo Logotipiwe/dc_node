@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(httpContext.middleware);
 
-app.use(authMiddleware)
+// app.use(authMiddleware)
 
 webControllers.forEach((value, key) => {
     app.use(key, value)

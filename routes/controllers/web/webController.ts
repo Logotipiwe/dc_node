@@ -3,9 +3,10 @@ import listService from "../../services/ListService";
 import httpContext from "express-http-context";
 import listsPresenter from "../../presenters/web/ListsPresenter";
 import authPresenter from "../../presenters/web/AuthPersenter";
+import {authMiddleware} from "../../auth/authMiddleware";
 const router = express.Router();
 
-router.get('/', async function(req, res, next) {
+router.get('/', [authMiddleware, async function(req, res, next) {
     try {
         let page = ""
         const user = httpContext.get("user");
@@ -21,5 +22,5 @@ router.get('/', async function(req, res, next) {
     } catch (e) {
         next(e)
     }
-});
+}]);
 export default router;

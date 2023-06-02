@@ -21,7 +21,7 @@ router.post("/create", async (req, res, next) => {
 
 router.post('/delete/:id', async (req, res, next) => {
     try {
-        console.log(req.params.id);
+        console.log("Deleting: " + req.params.id);
         await todoService.delete(req.body);
         res.redirect("/");
     } catch (e) {
@@ -29,17 +29,25 @@ router.post('/delete/:id', async (req, res, next) => {
     }
 });
 
-router.post('/edit/:id', async (req, res) => {
-    const id = req.params.id;
-    await todoService.editOne({...req.body, id});
-    res.redirect("/");
+router.post('/edit/:id', async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const todo = await todoService.getOne(id);
+        todo.edit(req.body)
+        const edited = await todoService.editOne(todo);
+        res.redirect("/");
+    } catch (e) {
+        next(e)
+    }
 });
 
 router.get('/', async function(req, res, next) {
-    const todos = await todoService.getAll();
-    res.send(listsPresenter.creationForm() + todosPresenter.printTodos(todos));
+    try {
+        const todos = await todoService.getAll();
+        res.send(listsPresenter.creationForm() + todosPresenter.printTodos(todos));
+    } catch (e) {
+        next(e)
+    }
 });
-
-console.log(process.env.DB)
 
 export default router;

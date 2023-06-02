@@ -14,4 +14,9 @@ export default class Todo extends Entity{
     static create(name: string, listId?: string){
         return new Todo(name, listId)
     }
+
+    edit(from: any){
+        if(from.name) this.name = from.name
+        if(from.listId) this.listId = from.listId
+    }
 }

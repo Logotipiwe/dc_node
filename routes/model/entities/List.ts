@@ -17,4 +17,9 @@ export default class List extends Entity{
 
         return list;
     }
+
+    edit(from: any){
+        if(from.name) this.name = from.name;
+        if(from.type) this.type = from.type === "num" ? "num" : "bullet";
+    }
 }

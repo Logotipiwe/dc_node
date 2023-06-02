@@ -8,6 +8,10 @@ class GoogleOAuthService {
         if(user.sub){
             return new User(user.sub, user.name);
         } else {
+            let s;
+            try { s = JSON.stringify(user); }
+            catch (e) { s = user.toString(); }
+            console.log("Unable to get user data. Ans: " + s)
             return null;
         }
     }
