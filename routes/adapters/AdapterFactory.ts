@@ -7,10 +7,11 @@ export default class AdapterFactory {
     static _adapters: Record<string, AbstractAdapter<any, any>> = {
         "MONGO": mongoAdapter
     }
-    static getAdapter(): AbstractAdapter<any, any>{
+
+    static getAdapter(): AbstractAdapter<any, any> {
         const dbType = EnvAccessor.getDbType();
         let adapter = this._adapters[dbType];
-        if(!adapter) return emptyAdapter;
+        if (!adapter) return emptyAdapter;
         return adapter;
     }
 }

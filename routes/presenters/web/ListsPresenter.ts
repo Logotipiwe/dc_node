@@ -40,4 +40,5 @@ class ListsPresenter {
         </form>`;
     };
 }
+
 export default new ListsPresenter()

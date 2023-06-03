@@ -1,33 +1,32 @@
 import AbstractStorage from "../abstractStorage";
 import {Db, Document, MongoClient, WithId} from "mongodb";
-import Todo from "../../model/entities/Todo";
 import EnvAccessor from "../../EnvAccessor";
 
 export default class MongoStorage extends AbstractStorage<WithId<Document>> {
     static storageType = "MONGO"
+    _client: Db
+
     constructor() {
         super();
         const client = new MongoClient(EnvAccessor.getMongoUrl());
         const db = client.db(EnvAccessor.getMongoDbName());
         this._client = db;
-        db.command( { connectionStatus: 1, showPrivileges: false } ).then(res=> {
+        db.command({connectionStatus: 1, showPrivileges: false}).then(res => {
             console.log("Mongo connection result:")
             console.log(res)
         })
     }
 
-    _client: Db
-
-    getStorageType(){
+    getStorageType() {
         return MongoStorage.storageType;
     }
 
-    async getAll(table:string) {
+    async getAll(table: string) {
         const collection = this._client.collection(table);
         return await collection.find().toArray();
     }
 
-    async saveOne(table:string, entity: WithId<Document>) {
+    async saveOne(table: string, entity: WithId<Document>) {
         const collection = this._client.collection(table);
         await collection.insertOne(entity)
         return entity
@@ -39,7 +38,7 @@ export default class MongoStorage extends AbstractStorage<WithId<Document>> {
         return entities;
     }
 
-    async deleteAll(table:string) {
+    async deleteAll(table: string) {
         const collection = this._client.collection(table);
         await collection.deleteMany()
     }
@@ -55,7 +54,7 @@ export default class MongoStorage extends AbstractStorage<WithId<Document>> {
         return entity;
     }
 
-    async closeConnection(){
+    async closeConnection() {
         // await this._client..close();
     }
 }

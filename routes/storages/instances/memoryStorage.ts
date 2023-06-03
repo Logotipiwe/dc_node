@@ -1,6 +1,5 @@
 import AbstractStorage from "../abstractStorage";
 import Todo from "../../model/entities/Todo";
-import e from "express";
 
 export default class MemoryStorage extends AbstractStorage<Object> {
     static _data: Object
@@ -10,8 +9,8 @@ export default class MemoryStorage extends AbstractStorage<Object> {
         MemoryStorage._data = {};
     }
 
-    async getAll(table:string) {
-        if(!MemoryStorage._data[table]){
+    async getAll(table: string) {
+        if (!MemoryStorage._data[table]) {
             MemoryStorage._data[table] = [];
         }
         return MemoryStorage._data[table];
@@ -36,7 +35,7 @@ export default class MemoryStorage extends AbstractStorage<Object> {
         return entities
     }
 
-    async deleteAll(table: string, ) {
+    async deleteAll(table: string,) {
         MemoryStorage._data[table] = [];
     }
 
@@ -44,7 +43,7 @@ export default class MemoryStorage extends AbstractStorage<Object> {
         const entities = await this.getAll(table);
         const indexToDelete = entities.findIndex(x => x.id == entity.id);
         entities.splice(indexToDelete, 1);
-        await this.saveMany(table,entities);
+        await this.saveMany(table, entities);
         return true;
     }
 
@@ -55,7 +54,7 @@ export default class MemoryStorage extends AbstractStorage<Object> {
 
         const entityToSave = {...entityToChange, ...entity};
 
-        const saved = this.saveOne(table,entityToSave);
+        const saved = this.saveOne(table, entityToSave);
         return saved;
     }
 

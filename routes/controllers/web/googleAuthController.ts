@@ -1,5 +1,6 @@
 import express from "express";
 import googleOAuthService from "../../auth/GoogleOAuthService";
+
 const router = express.Router();
 router.get("", async (req, res, next) => {
     try {

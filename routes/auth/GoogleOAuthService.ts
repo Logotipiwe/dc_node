@@ -4,15 +4,16 @@ import EnvAccessor from "../EnvAccessor";
 class GoogleOAuthService {
     getCodeURL = "https://accounts.google.com/o/oauth2/v2/auth"
     clientId = "319710408255-ntkf14k8ruk4p98sn2u1ho4j99rpjqja.apps.googleusercontent.com"
-    async authUser(accessToken: string){
+
+    async authUser(accessToken: string) {
         console.log("Authorizing with access_token = " + accessToken)
-        if(!accessToken) {
+        if (!accessToken) {
             return null
         }
         const user = await fetch("https://www.googleapis.com/oauth2/v3/userinfo?alt=json", {
-            headers: { "Authorization": "Bearer " + accessToken }
-        }).then(r=>r.json());
-        if(user.sub){
+            headers: {"Authorization": "Bearer " + accessToken}
+        }).then(r => r.json());
+        if (user.sub) {
             console.log(`Successful for user ${user.sub}, ${user.name}`)
             return new User(user.sub, user.name);
         } else {
@@ -38,11 +39,11 @@ class GoogleOAuthService {
         const formBody = formBody2.join("&");
         const result = await fetch('https://oauth2.googleapis.com/token', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+            headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
             body: formBody
-        }).then(res=>res.json());
+        }).then(res => res.json());
         let accessToken = result.access_token;
-        if(accessToken) {
+        if (accessToken) {
             console.log(`Code ${code} exchanged to token ${accessToken}`)
         } else {
             console.log(`Code ${code} exchanging failed with ans: ${JSON.stringify(result)}`)

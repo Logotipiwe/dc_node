@@ -3,7 +3,7 @@ import List from "../model/entities/List";
 import EntitiesTables from "../model/entities/EntitiesTables";
 import todoService from "../services/TodoService";
 
-class ListRepo extends AbstractRepo<List>{
+class ListRepo extends AbstractRepo<List> {
     getTable(): string {
         return EntitiesTables.LISTS;
     }
@@ -18,7 +18,7 @@ class ListRepo extends AbstractRepo<List>{
     async getAll(): Promise<List[]> {
         let lists = await super.getAll();
         const todos = await todoService.getAll();
-        lists.forEach(list=>{
+        lists.forEach(list => {
             list.todos = todos.filter(t => t.listId === list.id)
         })
         return lists;
@@ -30,11 +30,11 @@ class ListRepo extends AbstractRepo<List>{
     }
 
     async saveMany(entities: List[]): Promise<List[]> {
-        entities.forEach(list=> list.todos=[])
+        entities.forEach(list => list.todos = [])
         return super.saveMany(entities);
     }
 
-    sendInfo(clientInfo){
+    sendInfo(clientInfo) {
         console.log(clientInfo)
     }
 }

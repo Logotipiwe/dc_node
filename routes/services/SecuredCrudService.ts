@@ -4,7 +4,7 @@ import accessControl from "../auth/AccessControl";
 import userService from "../auth/UserService";
 
 
-export default abstract class SecuredCrudService<E extends Entity> extends CrudService<E>{
+export default abstract class SecuredCrudService<E extends Entity> extends CrudService<E> {
 
     async create(newEntity: E): Promise<E> {
         this.handleCreation(newEntity)
@@ -29,25 +29,25 @@ export default abstract class SecuredCrudService<E extends Entity> extends CrudS
 
     async getAll(): Promise<E[]> {
         let all = await super.getAll();
-        return all.filter(e=> this.hasAccess(e));
+        return all.filter(e => this.hasAccess(e));
     }
 
     async getOneInsecure(id: string): Promise<E> {
         return super.getOne(id);
     }
 
-    checkAccess(entity: E){
-        if(!this.hasAccess(entity)){
+    checkAccess(entity: E) {
+        if (!this.hasAccess(entity)) {
             throw new Error("No access")
         }
     }
 
-    hasAccess(entity: E){
+    hasAccess(entity: E) {
         return accessControl.hasAccessToOne(entity);
 
     }
 
-    handleCreation(entity: E): void{
+    handleCreation(entity: E): void {
         entity.userId = userService.getUser().id;
     }
 }

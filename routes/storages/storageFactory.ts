@@ -6,12 +6,12 @@ import {FileStorage} from "./instances/fileStorage";
 
 class StorageFactory {
     static _storages = {
-        "MONGO": ()=> new MongoStorage(),
+        "MONGO": () => new MongoStorage(),
         "MEM": () => new MemoryStorage(),
         "FILE": () => new FileStorage()
     }
 
-    static _instances: {[key: string]: AbstractStorage<any>} = {}
+    static _instances: { [key: string]: AbstractStorage<any> } = {}
 
     getStorage(): AbstractStorage<any> {
         const dbType: string = EnvAccessor.getDbType();

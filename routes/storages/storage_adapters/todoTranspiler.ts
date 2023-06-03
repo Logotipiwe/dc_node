@@ -1,9 +1,10 @@
+class TodoTranspiler {
+    _transpilers;
 
-class TodoTranspiler{
     constructor() {
         this._transpilers = {
             "MONGO": {
-                toObject: todo=>{
+                toObject: todo => {
                     todo.id = todo._id.toString();
                     return todo;
                 },
@@ -16,20 +17,18 @@ class TodoTranspiler{
         this.toObject = this.toObject.bind(this);
     }
 
-    _transpilers;
-
-    toObject(todo){
+    toObject(todo) {
         const mapper = this._transpilers[todo.savedBy]?.toObject;
-        if(mapper){
-           return mapper(Object.assign({}, todo));
+        if (mapper) {
+            return mapper(Object.assign({}, todo));
         } else {
             return todo;
         }
     }
 
-    toRelation(todo){
+    toRelation(todo) {
         const mapper = this._transpilers[todo.savedBy]?.toRelation;
-        if(mapper){
+        if (mapper) {
             return mapper(Object.assign({}, todo));
         } else {
             return todo;

@@ -1,9 +1,8 @@
 import AbstractAdapter from "../AbstractAdapter";
-import Todo from "../../model/entities/Todo";
 import {Document, ObjectId, WithId} from "mongodb";
 import Entity from "../../model/entities/Entity";
 
-class MongoAdapter extends AbstractAdapter<Entity, WithId<Document>>{
+class MongoAdapter extends AbstractAdapter<Entity, WithId<Document>> {
     toDocument(from: Entity): WithId<Document> {
         return {...from, _id: new ObjectId(from.id)};
     }

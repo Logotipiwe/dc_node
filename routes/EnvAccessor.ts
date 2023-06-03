@@ -1,10 +1,9 @@
-
-export default class EnvAccessor{
+export default class EnvAccessor {
     static getDbType(): string {
         return this.tryGetVar("DB")
     }
 
-    static getBaseHost(): string{
+    static getBaseHost(): string {
         return this.tryGetVar("BASE_HOST")
     }
 
@@ -32,8 +31,8 @@ export default class EnvAccessor{
         return this.tryGetVar("G_OAUTH_CLIENT_ID");
     }
 
-    static tryGetVar(name: string): string{
-        if(!process.env[name]){
+    static tryGetVar(name: string): string {
+        if (!process.env[name]) {
             throw new Error(`Cannot get ${name} env variable. Maybe it's not set!`)
         }
         return process.env[name];

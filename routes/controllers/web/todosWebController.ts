@@ -3,6 +3,7 @@ import todoService from "../../services/TodoService";
 import Todo from "../../model/entities/Todo";
 import listsPresenter from "../../presenters/web/ListsPresenter";
 import todosPresenter from "../../presenters/web/TodosPresenter";
+
 const router = express.Router();
 
 router.post("/create", async (req, res, next) => {
@@ -41,7 +42,7 @@ router.post('/edit/:id', async (req, res, next) => {
     }
 });
 
-router.get('/', async function(req, res, next) {
+router.get('/', async function (req, res, next) {
     try {
         const todos = await todoService.getAll();
         res.send(listsPresenter.creationForm() + todosPresenter.printTodos(todos));

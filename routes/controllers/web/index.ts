@@ -4,7 +4,7 @@ import listsRouter from "./listsWebController"
 import gOauth from "./googleAuthController"
 import {authMiddleware} from "../../auth/authMiddleware";
 
-let logging = (req, res, next)=>{
+let logging = (req, res, next) => {
     console.log("===REQUEST===")
     console.log("URL: " + req.url)
     console.log("BODY: " + JSON.stringify(req.body))

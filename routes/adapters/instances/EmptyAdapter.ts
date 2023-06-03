@@ -1,6 +1,6 @@
 import AbstractAdapter from "../AbstractAdapter";
 
-class EmptyAdapter extends AbstractAdapter<any, any>{
+class EmptyAdapter extends AbstractAdapter<any, any> {
     toDocument(from: any): any {
         return from;
     }
@@ -17,4 +17,5 @@ class EmptyAdapter extends AbstractAdapter<any, any>{
         return from
     }
 }
+
 export default new EmptyAdapter()

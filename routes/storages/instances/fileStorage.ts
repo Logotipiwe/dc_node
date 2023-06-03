@@ -1,20 +1,11 @@
 import * as fs from 'fs';
 import AbstractStorage from "../abstractStorage";
 import Entity from "../../model/entities/Entity";
-import e from "express";
 
-export class FileStorage extends AbstractStorage<Entity>{
-    private getDataFromFile(){
-        return JSON.parse(fs.readFileSync('data.json', 'utf8'));
-    }
-
-    private saveDataToFile(data: Entity){
-        return fs.writeFileSync("data.json", JSON.stringify(data));
-    }
-
-    async getAll(table:string) {
+export class FileStorage extends AbstractStorage<Entity> {
+    async getAll(table: string) {
         let json = this.getDataFromFile();
-        if(!json[table]){
+        if (!json[table]) {
             json[table] = [];
         }
         return json[table];
@@ -27,11 +18,11 @@ export class FileStorage extends AbstractStorage<Entity>{
 
     async saveMany(table: string, entities: Entity[]) {
         const data = this.getDataFromFile();
-        if(!data[table]){
+        if (!data[table]) {
             data[table] = []
         }
         const existing: Entity[] = data[table];
-        entities.forEach(toSave=>{
+        entities.forEach(toSave => {
             let indexToSave = existing.findIndex(t => t.id === toSave.id);
             if (indexToSave !== -1) {
                 existing.splice(indexToSave, 1, toSave);
@@ -45,7 +36,7 @@ export class FileStorage extends AbstractStorage<Entity>{
         return entities;
     }
 
-    async deleteAll(table:string) {
+    async deleteAll(table: string) {
         const data = this.getDataFromFile();
         data[table] = []
         this.saveDataToFile(data);
@@ -61,11 +52,19 @@ export class FileStorage extends AbstractStorage<Entity>{
         return true;
     }
 
-    async editOne(table:string, entity: Entity) {
+    async editOne(table: string, entity: Entity) {
         return this.saveOne(table, entity)
     }
 
     getStorageType() {
         return "FILE"
+    }
+
+    private getDataFromFile() {
+        return JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    }
+
+    private saveDataToFile(data: Entity) {
+        return fs.writeFileSync("data.json", JSON.stringify(data));
     }
 }

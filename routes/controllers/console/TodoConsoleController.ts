@@ -1,8 +1,8 @@
 import todoService from "../../services/TodoService";
 import consolePresenter from "../../presenters/console/TodosConsolePresenter";
+import todosConsolePresenter from "../../presenters/console/TodosConsolePresenter";
 import Todo from "../../model/entities/Todo";
 import AbstractConsoleController from "../../presenters/AbstractConsoleController";
-import todosConsolePresenter from "../../presenters/console/TodosConsolePresenter";
 
 class TodoConsoleController extends AbstractConsoleController {
     async processConsole(args: string[]): Promise<string> {
@@ -24,9 +24,9 @@ class TodoConsoleController extends AbstractConsoleController {
             todo.name = args[2]
             await todoService.editOne(todo);
             return `UPDATE SUCCESSFUL`;
-        } else if(s === "d"){
+        } else if (s === "d") {
             let id = args[1];
-            if(!id) return "Id empty!";
+            if (!id) return "Id empty!";
             const deleted = await todoService.delete(id);
             if (deleted) return "DELETED SUCCESSFULLY"
             else return "DELETING ERROR"

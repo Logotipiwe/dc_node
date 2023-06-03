@@ -1,4 +1,3 @@
-import List from "../../model/entities/List";
 import Todo from "../../model/entities/Todo";
 
 class TodosPresenter {

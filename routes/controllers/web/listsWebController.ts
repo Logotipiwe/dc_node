@@ -1,6 +1,7 @@
 import express from "express";
 import listService from "../../services/ListService";
 import List from "../../model/entities/List";
+
 const router = express.Router();
 
 router.post("/create", async (req, res, next) => {

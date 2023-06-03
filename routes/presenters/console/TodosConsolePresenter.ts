@@ -13,6 +13,7 @@ class TodosConsolePresenter {
         })
         return ans;
     }
+
     getHelp(): string {
         return `r - получить все. c - создать. u - обновить`;
     }

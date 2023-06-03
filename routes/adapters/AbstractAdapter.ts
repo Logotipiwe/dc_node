@@ -1,4 +1,4 @@
-export default abstract class AbstractAdapter<EntityType, DocType>{
+export default abstract class AbstractAdapter<EntityType, DocType> {
     toDocuments(from: EntityType[]): DocType[] {
         return from.map(this.toDocument);
     }
