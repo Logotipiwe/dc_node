@@ -25,7 +25,7 @@ class GoogleOAuthService {
             client_secret: "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",
             code,
             grant_type: "authorization_code",
-            redirect_uri: EnvAccessor.getBaseUrl() + "/g_oauth"
+            redirect_uri: EnvAccessor.getBaseHost() + EnvAccessor.getMongoUrl() + "/g_oauth"
         }
         const formBody2 = [];
         for (const property in details) {

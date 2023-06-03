@@ -11,7 +11,7 @@ class AuthPresenter {
         const url = new URL(GoogleOAuthService.getCodeURL);
         let init: Record<string, string> = {
             client_id: GoogleOAuthService.clientId,
-            redirect_uri: EnvAccessor.getBaseUrl() + "/g_oauth",
+            redirect_uri: EnvAccessor.getBaseHost() + EnvAccessor.getBasePath() + "/g_oauth",
             response_type: "code",
             scope: "profile"
         };
