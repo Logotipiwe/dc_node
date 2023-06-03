@@ -24,6 +24,14 @@ export default class EnvAccessor{
         return this.tryGetVar("MONGO_DB_NAME");
     }
 
+    static getGOAuthClientSecret(): string {
+        return this.tryGetVar("G_OAUTH_CLIENT_SECRET");
+    }
+
+    static getGOAuthClientId(): string {
+        return this.tryGetVar("G_OAUTH_CLIENT_ID");
+    }
+
     static tryGetVar(name: string): string{
         if(!process.env[name]){
             throw new Error(`Cannot get ${name} env variable. Maybe it's not set!`)
@@ -34,5 +42,7 @@ export default class EnvAccessor{
     static ensureNecessaryVars() {
         this.getBaseHost();
         this.getDbType();
+        this.getGOAuthClientSecret();
+        this.getGOAuthClientId();
     }
 }

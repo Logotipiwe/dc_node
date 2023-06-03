@@ -23,8 +23,8 @@ class GoogleOAuthService {
 
     async exchangeCodeToToken(code: string): Promise<string> {
         const details = {
-            client_id: "319710408255-ntkf14k8ruk4p98sn2u1ho4j99rpjqja.apps.googleusercontent.com",
-            client_secret: "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",
+            client_id: EnvAccessor.getGOAuthClientId(),
+            client_secret: EnvAccessor.getGOAuthClientSecret(),
             code,
             grant_type: "authorization_code",
             redirect_uri: EnvAccessor.getBaseHost() + EnvAccessor.getBasePath() + "/g_oauth"

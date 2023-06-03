@@ -10,7 +10,7 @@ export default class MongoStorage extends AbstractStorage<WithId<Document>> {
         const client = new MongoClient(EnvAccessor.getMongoUrl());
         const db = client.db(EnvAccessor.getMongoDbName());
         this._client = db;
-        db.command( { connectionStatus: 1, showPrivileges: false } ).then(res=>{
+        db.command( { connectionStatus: 1, showPrivileges: false } ).then(res=> {
             console.log("Mongo connection result:")
             console.log(res)
         })
