@@ -7,8 +7,13 @@ export default class MongoStorage extends AbstractStorage<WithId<Document>> {
     static storageType = "MONGO"
     constructor() {
         super();
-        this._client = new MongoClient(EnvAccessor.getMongoUrl())
-            .db("db");
+        const client = new MongoClient(EnvAccessor.getMongoUrl());
+        const db = client.db(EnvAccessor.getMongoDbName());
+        this._client = db;
+        db.command( { connectionStatus: 1, showPrivileges: false } ).then(res=>{
+            console.log("Mongo connection result:")
+            console.log(res)
+        })
     }
 
     _client: Db

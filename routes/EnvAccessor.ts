@@ -9,11 +9,19 @@ export default class EnvAccessor{
     }
 
     static getBasePath(): string {
-        return this.tryGetVar("BASE_PATH")
+        try {
+            return this.tryGetVar("BASE_PATH")
+        } catch (e) {
+            return ""
+        }
     }
 
     static getMongoUrl(): string {
         return this.tryGetVar("MONGO_URL");
+    }
+
+    static getMongoDbName(): string {
+        return this.tryGetVar("MONGO_DB_NAME");
     }
 
     static tryGetVar(name: string): string{
@@ -25,7 +33,6 @@ export default class EnvAccessor{
 
     static ensureNecessaryVars() {
         this.getBaseHost();
-        this.getBasePath();
         this.getDbType();
     }
 }

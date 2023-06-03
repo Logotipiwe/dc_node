@@ -5,16 +5,15 @@ class GoogleOAuthService {
     getCodeURL = "https://accounts.google.com/o/oauth2/v2/auth"
     clientId = "319710408255-ntkf14k8ruk4p98sn2u1ho4j99rpjqja.apps.googleusercontent.com"
     async authUser(accessToken: string){
+        console.log("Authorizing with access_token = " + accessToken)
         const user = await fetch("https://www.googleapis.com/oauth2/v3/userinfo?alt=json", {
             headers: { "Authorization": "Bearer " + accessToken }
         }).then(r=>r.json());
         if(user.sub){
+            console.log(`Successful for user ${user.sub}, ${user.name}`)
             return new User(user.sub, user.name);
         } else {
-            let s;
-            try { s = JSON.stringify(user); }
-            catch (e) { s = user.toString(); }
-            console.log("Unable to get user data. Ans: " + s)
+            console.log("Failed with ans: " + JSON.stringify(user))
             return null;
         }
     }
@@ -39,7 +38,13 @@ class GoogleOAuthService {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
             body: formBody
         }).then(res=>res.json());
-        return result.access_token;
+        let accessToken = result.access_token;
+        if(accessToken) {
+            console.log(`Code ${code} exchanged to token ${accessToken}`)
+        } else {
+            console.log(`Code ${code} exchanging failed with ans: ${JSON.stringify(result)}`)
+        }
+        return accessToken;
     }
 }
 

@@ -18,4 +18,6 @@ webControllers.forEach((value, key) => {
     app.use(EnvAccessor.getBasePath() + key, value)
 })
 
+console.log("DB type: " + EnvAccessor.getDbType())
+
 export default app;
