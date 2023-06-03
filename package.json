@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env DB=MEM nodemon -w ./ --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
-    "startProd": "cross-env DB=MONGO node --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
-    "startConsole": "cross-env DB=MEM nodemon --ignore=data.json --experimental-specifier-resolution=node --loader=ts-node/esm bin/console.js",
+    "start": "cross-env DB=MONGO BASE_HOST=http://localhost:3000 MONGO_DB_NAME=db MONGO_URL=mongodb://root:example@localhost:27017/ nodemon -w ./ --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
+    "startProd": "cross-env node --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
+    "startConsole": "cross-env DB=MEM BASE=http://localhost:3000 nodemon --ignore=data.json --experimental-specifier-resolution=node --loader=ts-node/esm bin/console.js",
     "start2": "node bin/www.js",
     "test": "jest routes/sum.test.ts"
   },

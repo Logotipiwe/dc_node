@@ -5,6 +5,7 @@ import webControllers from "./routes/controllers/web";
 import httpContext from "express-http-context";
 import EnvAccessor from "./routes/EnvAccessor";
 
+EnvAccessor.ensureNecessaryVars()
 
 const app = express();
 app.use(logger('dev'));
@@ -14,7 +15,7 @@ app.use(cookieParser());
 app.use(httpContext.middleware);
 
 webControllers.forEach((value, key) => {
-    app.use(key, value)
+    app.use(EnvAccessor.getBasePath() + key, value)
 })
 
 console.log("DB type: " + EnvAccessor.getDbType())
