@@ -15,7 +15,7 @@ router.get("", async (req, res, next) => {
 
 router.get("/logout", (req, res, next) => {
     try {
-        res.cookie("access_token", undefined, {httpOnly: true})
+        res.cookie("access_token", "", {httpOnly: true})
         res.redirect("/")
     } catch (e) {
         next(e)

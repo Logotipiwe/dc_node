@@ -6,6 +6,9 @@ class GoogleOAuthService {
     clientId = "319710408255-ntkf14k8ruk4p98sn2u1ho4j99rpjqja.apps.googleusercontent.com"
     async authUser(accessToken: string){
         console.log("Authorizing with access_token = " + accessToken)
+        if(!accessToken) {
+            return null
+        }
         const user = await fetch("https://www.googleapis.com/oauth2/v3/userinfo?alt=json", {
             headers: { "Authorization": "Bearer " + accessToken }
         }).then(r=>r.json());
