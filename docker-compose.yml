@@ -20,10 +20,16 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
 
   node:
+    container_name: node
     build: ./
     restart: always
-    ports:
-      - 8081:3000
+    environment:
+      DB: MONGO
+      MONGO_URL: mongodb://root:example@mongo:27017/
+      BASE_HOST: http://localhost
+      BASE_PATH: /node
+    networks:
+      - dc-net
 
 networks:
   dc-net:

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "node",
   "scripts": {
     "start": "cross-env DB=MEM nodemon -w ./ --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
     "startProd": "cross-env DB=MONGO node --experimental-specifier-resolution=node --loader=ts-node/esm bin/www.js",
